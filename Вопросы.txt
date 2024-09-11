@@ -1,0 +1,4 @@
+1. models.py нужен для создания моделей и добавления их в бд
+2. py .\manage.py makemigrations
+3. migrations
+4. py .\manage.py migrate   
