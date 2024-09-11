@@ -1,0 +1,4 @@
+1. http запросы обрабатываются в файле app/views.py
+2. app/urls.py
+3. django-admin startproject название
+4. py startapp название
