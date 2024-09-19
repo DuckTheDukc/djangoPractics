@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style/style.css' %}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <nav class="bg-gray-800">
+            <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+              <div class="relative flex h-16 items-center justify-between">
+                <div class="flex flex-1 items-center justify-center sm:items-stretch">
+                  <div class="hidden sm:ml-6 sm:block">
+
+                    <div class="flex space-x-7">
+                      <div class="search">
+                        <form action="{% url 'search' %}">
+                          <input type="text" name="search">
+                          <button type="submit" style="background-color: white;">Поиск</button>
+                        </form>
+                      </div>
+                      <a href="{% url 'home' %}" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Главная</a>
+                      <a href="{% url 'about' %}" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">О нас</a>
+                      <a href="{% url 'products' %}" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Товары</a>
+
+                    </div>
+                  </div>
+                </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nav>
+          
+    </header>
+{% block content %}
+
+{%endblock%}
+</body>
+</html>
