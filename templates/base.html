@@ -30,7 +30,8 @@
                      <div class="rounded-md px-4 py-2 text-sm font-medium text-gray-100"> {{request.user.username}} </div>
                       <form action="{%url 'logout'%}" method="POST">
                       {%csrf_token%}
-                      <button>выход</button>
+                      <button style="color:white">выход</button>
+                    </form>
                       {%endif%}
                     </div>
                   </div>
