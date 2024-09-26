@@ -27,7 +27,7 @@
                       <a href="{% url 'about' %}" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">О нас</a>
                       <a href="{% url 'products' %}" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Товары</a>
                       {%if request.user%}
-                     <div class="rounded-md px-4 py-2 text-sm font-medium text-gray-100"> {{request.user.username}} </div>
+                     <div class="rounded-md px-4 py-2 text-sm font-medium text-gray-100"><a href="{% url 'profile' %}"> {{request.user.username}} </a></div>
                       <form action="{%url 'logout'%}" method="POST">
                       {%csrf_token%}
                       <button style="color:white">выход</button>

@@ -5,6 +5,8 @@ from django.contrib.auth import login, authenticate, logout
 from .forms import RegisterForm, LoginForm
 from django.http import HttpRequest
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from officeshop.models.profile import Profile
 # Create your views here.
 
 def get_homepage(request): 
@@ -71,3 +73,19 @@ def logout_user(request: HttpRequest):
         logout(request)
 
     return redirect('home')
+
+@login_required(login_url='login')
+def profile_view(request:HttpRequest):
+    user=Profile.objects.select_related('user').get(user=request.user)
+    if request.method == 'POST':
+        user.gender = request.POST['gender']
+        user.country = request.POST['country']
+        user.city = request.POST['city']
+        user.street = request.POST['street']
+        user.house = request.POST['house']
+        user.apartament_number = request.POST['apartment_number']
+        
+        user.save()
+    return render(request, 'profile.html', context={
+        'user': user
+    })
