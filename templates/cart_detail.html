@@ -1,0 +1,19 @@
+{%extends "base.html"%}
+
+{%block content%}
+<li><a href="{%url 'cart_detail'%}">Корзина{{cart|length}}</a></li>
+    <div class="cart_body">
+        {%for item in cart %}
+
+        <div class="item_cart">
+            Количество: {{item.quantity}}
+            Цена: {{item.price}}
+
+            <img src="{{item.product.image.url}}" width="100px" widht="100px">
+            <a href='{%url "cart_remove" item.product.id %}'>удалить</a>
+
+        </div>
+        {% endfor %}
+    </div>
+Сумма корзины:{{cart.get_total_price}}
+{% endblock %}

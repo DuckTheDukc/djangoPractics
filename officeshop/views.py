@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from officeshop.models.products import Product
 from django.db.models import Q
 from django.contrib.auth import login, authenticate, logout
@@ -7,6 +7,9 @@ from django.http import HttpRequest
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from officeshop.models.profile import Profile
+from .cart import CartSession
+from officeshop.models.products import Product
+from django.urls import reverse
 # Create your views here.
 
 def get_homepage(request): 
@@ -88,4 +91,23 @@ def profile_view(request:HttpRequest):
         user.save()
     return render(request, 'profile.html', context={
         'user': user
+    })
+    
+def cart_add(request: HttpRequest, product_id):
+    cart=CartSession(request.session)
+    product=get_object_or_404(Product, id=product_id)
+    cart.add(product=product)
+    
+    return redirect(reverse('cart_detail'))
+
+def cart_remove(request:HttpRequest, product_id):
+    cart=CartSession(request.session)
+    product=get_object_or_404(Product, id=product_id)
+    cart.remove(product=product)
+    return redirect(reverse('cart_detail'))
+
+def cart_detail(request:HttpRequest):
+    cart=CartSession(request.session)
+    return render(request,'cart_detail.html', context={
+        'cart':cart
     })

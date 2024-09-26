@@ -9,7 +9,7 @@
     <div>{{i.description}}</div>
     <div>{{i.price}}</div>
     <img src="{{i.image.url}}">
-    
+    <a href="{% url 'cart_add' product.id %}"> В корзину </a>
 </div>
 {% endfor %}
 </div>
