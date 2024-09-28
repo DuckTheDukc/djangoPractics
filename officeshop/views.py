@@ -111,3 +111,8 @@ def cart_detail(request:HttpRequest):
     return render(request,'cart_detail.html', context={
         'cart':cart
     })
+
+def cart_remove_all(request:HttpRequest):
+    cart=CartSession(request.session)
+    cart.clear()
+    return redirect('cart_detail')
