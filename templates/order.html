@@ -1,0 +1,12 @@
+{%extends "base.html"%} {%block content%}
+
+<div>
+  <div>
+    <h2>Оформление заказа</h2>
+  </div>
+  <form action="{%url 'create_order' %}" method="POST">
+    {%csrf_token%} {{OrderForm.as_p}}
+    <button type="submit">Заказать</button>
+  </form>
+</div>
+{%endblock%}
