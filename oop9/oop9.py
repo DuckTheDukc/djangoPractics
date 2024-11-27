@@ -34,4 +34,24 @@ from typing import Any
 # )
 
 class Power:
+    def __init__(self, n):
+        self.n=n
+        
+    def __call__(self, res):
+        return res**self.n
+    
+
+
+class Repeat:
+    def __init__(self, num):
+        self.num=num
+    def __call__(self,func):
+        def wrapper():
+            for _ in range(self.num):
+                func
+        return wrapper
+
+@Repeat(5)
+def e():
+    print("sad")
     
