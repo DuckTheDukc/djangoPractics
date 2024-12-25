@@ -28,7 +28,24 @@ class Fibonachi:
     def __iter__(self):
         return self
     
-f = Fibonachi(12)
+# f = Fibonachi(12)
 
-for i in f:
+# for i in f:
+#     print(i)
+    
+class Multiple:
+    num=0
+    def __init__(self, mul):
+        self.mul=mul
+        
+    def __next__(self):
+            self.num += self.mul
+            return self.num
+    
+    def __iter__(self):
+        return self
+    
+a=Multiple(2)
+
+for i in a:
     print(i)
