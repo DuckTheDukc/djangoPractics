@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="{% url 'website_data_detail' websites.id %}"></a>
+<div>
+    <a
+    hx-get="{% url 'website_data_create' %}"
+    class="btn btn-secondary p-0 bg-white border-white" type="submit"
+    hx-trigger="click"
+    hx-swap="innerHTML"
+    href="#"
+    hx-target="#detail_data"
+    >
+<i class="bi bi-plus-square fs-4 text-dark"></i>
+добавить</a>
+</div>
