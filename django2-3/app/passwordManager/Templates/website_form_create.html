@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+<div>
+    <button
+    hx-post="{% url 'website_data_create' %}"
+    hx-target="#detail_data"
+    hx-swap="innerHTML"
+    hx-trigger="click"
+    class="btn btn-primary"
+    type="button"
+    >Сохранить</button>
+
+    <button
+    hx-get="{% url 'home' %}"
+    hx-target="#detail_data"
+    hx-swap="innerHTML"
+    hx-trigger="click"
+    class="btn btn-secondary"
+    type="button"
+    >Отменить</button>
+</div>
+</body>
+</html>

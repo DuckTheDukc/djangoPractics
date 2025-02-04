@@ -1,0 +1,11 @@
+services:
+  app:
+    container_name: password_manager
+    build:
+      context: .
+      dockerfile: docker-files/app/Dockerfile
+    volumes:
+      -./src:/app
+    ports:
+      -"8000:8000"    
+  
