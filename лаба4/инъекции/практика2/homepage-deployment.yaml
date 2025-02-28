@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: homepage
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: homepage
+  template:
+    metadata:
+      labels:
+        app: homepage
+    spec:
+      containers:
+        - name: homepage
+          image: ghcr.io/gethomepage/homepage:latest
+          volumeMounts:
+            - mountPath: /app/config
+              name: homepage-config
+            - mountPath: /var/run/docker.sock
+              name: docker-sock
+      volumes:
+        - name: homepage-config
+          hostPath:
+            path: /path/to/local/homepage/config
+        - name: docker-sock
+          hostPath:
+            path: /var/run/docker.sock
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: homepage
+spec:
+  selector:
+    app: homepage
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000

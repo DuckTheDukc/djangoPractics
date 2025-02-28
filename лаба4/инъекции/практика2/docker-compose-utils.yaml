@@ -1,0 +1,102 @@
+services:
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    restart: always
+    volumes:
+      - ./homepage:/app/config # Make sure your local config directory exists
+      - /var/run/docker.sock:/var/run/docker.sock # (optional) For docker integrations
+    networks:
+      - private-network
+
+  portainer:
+    image: portainer/portainer-ce:latest
+    ports:
+      - 9443:9443
+    # environment:
+    #   - TZ=Europe/Samara
+    #   - ADMIN_USERNAME=${PORTAINER_ADMIN_USERNAME}
+    #   - ADMIN_PASSWORD=${PORTAINER_ADMIN_PASSWORD}
+    volumes:
+      - portainer_data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+
+  db:
+    image: mysql:latest
+    restart: always
+    container_name: db
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./mysql-init:/docker-entrypoint-initdb.d
+    networks:
+      - temporal-network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      PMA_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+    depends_on:
+      - db
+    networks:
+      - temporal-network
+
+  minikube:
+    image: gcr.io/k8s-minikube/kicbase:v0.0.41
+    container_name: minikube
+    ports:
+      - 3002:3002
+    privileged: true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - minikube_data:/data
+    environment:
+      - MINIKUBE_HOME=/data
+    networks:
+      - temporal-network
+    depends_on:
+      - db
+      - zookeeper
+      - kafka
+    restart: always
+
+  labatamiya:
+    image: labatamiya
+    ports:
+      - 3001:3001
+    environment:
+      - PORT= 1337
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+      - MYSQL_DBNAME=practic2
+      - MYSQL_HOST=db
+      - MYSQL_PORT=3306
+      - TOKEN=super-puper-secret
+      - JWT_SECRET=$2b$10$GVP56WuVE56Rk.nEbSb9AOlXWpu08969CXG9hShDF0NiHb2LxtzuS
+    networks:
+      - temporal-network
+    depends_on:
+      - db
+
+networks:
+  temporal-network:
+    driver: bridge
+    name: temporal-network
+  private-network:
+    driver: bridge
+
+volumes:
+  minio_data:
+  redis-data:
+  portainer_data:
+  prometheus_data:
+  grafana_data:
+  minikube_data:

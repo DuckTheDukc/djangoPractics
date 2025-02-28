@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      #comments {
+        margin-top: 20px;
+      }
+      .comment {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Добавить комментарий</h1>
+    <form id="commentForm">
+      <textarea
+        id="commentInput"
+        rows="4"
+        cols="50"
+        placeholder="Введите ваш комментарий..."
+      ></textarea
+      ><br /><br />
+      <button type="submit">Отправить</button>
+    </form>
+
+    <div id="comments">
+      <h2>Комментарии:</h2>
+    </div>
+
+    <script>
+      document
+        .getElementById("commentForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          let commentText = document.getElementById("commentInput").value;
+
+          let commentDiv = document.createElement("div");
+          commentDiv.className = "comment";
+
+          let textNode = document.createTextNode(commentText);
+          commentDiv.appendChild(textNode);
+
+          document.getElementById("comments").appendChild(commentDiv);
+
+          document.getElementById("commentInput").value = "";
+        });
+    </script>
+  </body>
+</html>
