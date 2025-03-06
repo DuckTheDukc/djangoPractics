@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a hx-get="{% url 'website_data_detail' website.id %}" hx-target="#detail_data" hx-trigger="click" hx-swap="innerHTML" href='#'></a>
+</body>
+</html>
+
+<script  src="https://unpkg.com/htmx.org@2.0.4"> </script>
