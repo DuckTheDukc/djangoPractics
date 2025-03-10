@@ -1,0 +1,31 @@
+services:
+  app:
+    container_name: password_manager
+    build:
+      context: .
+      dockerfile: docker-files/app/Dockerfile
+    volumes:
+      - ./src:/app
+    ports:
+      - "8000:8000"    
+  nginx:
+    image: nginx:latest
+
+    volumes:
+      - ./docker-files/nginx/nginx.conf:/etc/nginx/conf.d/app.conf:ro
+      - ./src:/app
+
+    ports:
+      - "8080:80"
+      - "4433:443"
+    depends_on:
+      - app
+      - redis
+
+  redis:
+      container_name: redis
+      image: redis:7.4-alpine
+      ports:
+          -"6379:6379"
+      restart: always
+    
