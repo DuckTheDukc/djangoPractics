@@ -6,7 +6,7 @@ from account.manager import UserManager
 from django.utils.translation import gettext as _
 from django.contrib.auth.models import AbstractUser
 
-class User[AbstractUser]:
+class User(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     email= models.EmailField(unique=True)
     username=models.CharField(max_length=255, unique=False)
